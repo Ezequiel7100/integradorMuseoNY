@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museo NY</title>
+    <link rel="stylesheet" href="estilo.css">
+    <script src="./scripts.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav class="menu">
+            <h1>Museo Metropolitano de Nueva York</h1>
+            <select id="departamento" class="filtro">
+                <option value="">Seleccionar Departamento</option>
+            </select>
+            <input type="text" id="palabraClave" placeholder="Palabra clave" class="filtro">
+            <select id="localizacion" class="filtro">
+                <option value="">Seleccionar Localización</option>
+                <option value="Germany">Alemania</option>
+                <option value="France">Francia</option>
+                <option value="Spain">España</option>
+                <option value="Korea">Corea</option>
+                <option value="Egypt">India</option>
+                <option value="China">China</option>
+                <option value="Greece">Grecia</option>
+                <option value="Italy">Italia</option>
+                <option value="Mexico">Mexico</option>
+                <option value="Japan">Japon</option>
+            </select>
+            <button id="buscarBtn" class="boton-buscar">Buscar</button>
+        </nav>
+    </header>
+
+    <!-- Contenedor de Cards -->
+    <section class="cards-container" id="cards-container">
+
+    </section>
+    <!-- Paginacion -->
+    <div class="paginacion">
+        <button id="prevBtn" class="boton-paginacion">Anterior</button>
+        <span id="numPag">1</span>
+        <button id="nextBtn" class="boton-paginacion">Siguiente</button>
+    </div>
+</body>
+</html>
