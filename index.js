@@ -1,32 +1,35 @@
 const express = require('express');
 const translate = require('node-google-translate-skidz');
-const { Translate }  = require("node-google-translate-skidz");
+const axios = require('axios');
 const app = express();
 const port = 3000;
 
-
-
 app.use(express.static("public"));
+app.use(express.json());
 
-app.listen(port, () =>{
-    console.log(`server port ${port}`);
-});
 
-// Función para traducir texto usando node-google-translate-skidz
+// función para traducir texto usando node-google-translate-skidz
+
 async function translateText(text, targetLang) {
+
     try {
-        const result = await Translate({
+        const result = await translate({
             text: text,
-            target: targetLang, //  especificar el idioma 
+            source: "en",
+            target: targetLang, // especificar el idioma
         });
-        return result.translation; //  texto traducido
+        console.log(`Traducción: "${text}" -> "${result.translation}"`);
+        return result.translation; // Devuelve solo la traducción
     } catch (error) {
         console.error('Error en la traducción:', error);
         return text; // Si hay un error, devolvemos el texto original
     }
 }
 
+
+console.log('Inicio de la solicitud');
 app.get('/', async (req, res) => {
+    console.log('Inicio de la solicitud 22222222');
     try {
         // 1. Obtiene el listado de objetos de arte desde la API del Met
         const response = await axios.get('https://collectionapi.metmuseum.org/public/collection/v1/objects');
@@ -38,10 +41,10 @@ app.get('/', async (req, res) => {
                 const responseObjeto = await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${productoID}`);
                 const dataObjeto = responseObjeto.data;
 
-                console.log("Objeto original: ", dataObjeto); // Verificar los datos obtenidos
+                Console.log("Objeto original: ", dataObjeto); // Verificar los datos obtenidos
 
                 // 3. Traducir los textos relevantes
-                const nombreTraducido = await translateText(dataObjeto.title || "Sin título", 'es');
+                const nombreTraducido = await translateText(dataObjeto.title || "Sin título",'es');
                 const culturaTraducida = await translateText(dataObjeto.culture || "Sin datos",'es');
                 const dinastiaTraducida = await translateText(dataObjeto.dynasty || "Sin datos",'es');
 
@@ -72,10 +75,11 @@ app.get('/', async (req, res) => {
         console.log("Objetos traducidos: ", productosFiltrados); // Verificar que se tradujeron
 
         // 6. Renderiza los productos traducidos a la vista
-        res.render('index', { productos: productosFiltrados });
+        res.json(productosFiltrados);
 
     } catch (error) {
         console.error("Error en la obtención o traducción de productos:", error);
         res.status(500).send("Error interno del servidor");
     }
 });
+

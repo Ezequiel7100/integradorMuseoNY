@@ -1,11 +1,13 @@
+
 const URL_DEPARTAMENTOS = "https://collectionapi.metmuseum.org/public/collection/v1/departments";
 const URL_OBJETO = "https://collectionapi.metmuseum.org/public/collection/v1/objects/";
 const URL_SEARCH_IMAGES = "https://collectionapi.metmuseum.org/public/collection/v1/search?q=&hasImages=true";
 const URL_SEARCH = "https://collectionapi.metmuseum.org/public/collection/v1/search";
 
+
 let currentObjectIDs = []; // IDs de objetos actuales
-let currentIndex = 0; // Índice actual de paginación
-const objectsPerPage = 20; // Número de objetos por página
+let currentIndex = 0; // indice actual de paginación
+const objectsPerPage = 20; // Numero de objetos por página
 let numPag = 1; // Página actual
 
 // Fetch para cargar departamentos en el select
@@ -43,8 +45,8 @@ function objetosFetch(objectIDs) {
                         ${imagen}
                         <h3 class="fecha">Creado en: ${creacionData}</h3>
                         <h4 class="titulo">${data.title}</h4>
-                        <h6 class="cultura">${data.culture ? data.culture : 'Sin datos'}</h6>
-                        <h6 class="dinastia">${data.dynasty ? data.dynasty : 'Sin datos'}</h6>
+                        <h6 class="cultura">Cultura: ${data.culture ? data.culture : 'Sin datos'}</h6>
+                        <h6 class="dinastia">Dinastia: ${data.dynasty ? data.dynasty : 'Sin datos'}</h6>
                     </div>`;
             });
          promises.push(promise);
@@ -108,6 +110,7 @@ document.getElementById("buscarBtn").addEventListener("click", () => {
 });
 
 // Funcion  "Siguiente"
+
 document.getElementById("nextBtn").addEventListener("click", () => {
     if (currentIndex + objectsPerPage < currentObjectIDs.length) {
         currentIndex += objectsPerPage; // Avanza a la siguiente pagina
