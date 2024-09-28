@@ -9,6 +9,10 @@ let currentIndex = 0; // indice actual de paginación
 const objectsPerPage = 20; // Numero de objetos por página
 let numPag = 1; // Página actual
 
+/* Buenas Profe, escribo este mensaje para contarle que la parte de traducir funciona en localhost.
+    Cuando lo subi a vercel, ahi fue cuando me salieron los errores que no pude solucionar.
+*/
+
 // Fetch para cargar departamentos en el select
 function departementosFetch() {
     fetch(URL_DEPARTAMENTOS)
